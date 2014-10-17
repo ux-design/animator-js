@@ -71,13 +71,12 @@ if ( browserIsCompatible() ) {
     }
 
 
-    var Animator = function ( target, elemClass, callback ) { 
+    var Animator = function ( target, elemClass ) { 
         var me = this ;
         me.target = target ;
         me.ID = 0 ;
         me.elemClass = elemClass ;
         me.prevDelay = 0 ;
-        me.callback = callback ;
         me.animations = [] ;
         me.cssRules = "" ;
         me.init() ;
@@ -190,5 +189,5 @@ if ( browserIsCompatible() ) {
     Animator.prototype.totInstances = 0 ;
 
 } else {
-    console.log( "sorry! this browser is not compatible with animator.js" ) ;
+    console.log( "sorry! this browser does is not supported! Try to update or change to a good one ;)" ) ;
 }
