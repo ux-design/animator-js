@@ -30,10 +30,15 @@ Define the graphic style of the element
 ```html
 <style>
     .logo {
-        position          : absolute ;
-        width             : 100px ;
-        height            : 100px ;
-        background-color  : red ;
+        position                    :   absolute ;
+        width                       :   100px ;
+        height                      :   100px ;
+        background-color            :   red ;
+        -webkit-transform-origin    :   50% 50% ;
+        -moz-transform-origin       :   50% 50% ;
+        -o-transform-origin         :   50% 50% ;
+        -ms-transform-origin        :   50% 50% ;
+        transform-origin            :   50% 50% ;
     }
 </style>
 ```
@@ -43,7 +48,7 @@ Define the graphic style of the element
 Ready to code! Right after the animator.js inclusion line.
 
 ```js
-var logo = new Animator( ".logo", "classNameForThisAnimation", ) ;
+var logo = new Animator( ".logo", "classNameForThisAnimation" ) ;
 
 // initialize to starting values 
 // className, left, top, rotation, scale, opacity, duration, easing
