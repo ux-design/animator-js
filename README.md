@@ -45,6 +45,12 @@ Ready to code! Right after the animator.js inclusion line.
 ```js
 var logo = new Animator( ".logo", "classNameForThisAnimation", ) ;
 
+// initialize to starting values 
+// className, left, top, rotation, scale, opacity, duration, easing
+logo.animate( ".logo", 0, 0, 0, 1, 1, 0, 'ease-in-out' ) ; 
+
+// move logo to right for 300px rotate it 90 degrees, scale it to double in 5 seconds. 
+logo.animate( ".logo", 300, 0, 90, 2, 1, 5, 'ease-in-out' ) ; 
 ```
 
 
