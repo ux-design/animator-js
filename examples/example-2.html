@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <style>
+            .ball {
+                position                    :   absolute ;
+                left                        :   0px ;
+                top                         :   0px ;
+                width                       :   100px ;
+                height                      :   100px ;
+                background-color            :   red ;
+                -webkit-transform-origin    :   50% 50% ;
+                -moz-transform-origin       :   50% 50% ;
+                -o-transform-origin         :   50% 50% ;
+                -ms-transform-origin        :   50% 50% ;
+                transform-origin            :   50% 50% ;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="ball"></div>
+        <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="../animator.js"></script>
+        <script>
+            var a = new Animator( ".ball ", "ballMove", 2, false, function() { alert("fine"); } ) ;
+            a.animate( ".ball", 0, 0, 0, 1, 1, 0, 'ease-in-out' ) ;
+            a.animate( ".ball", 300, 0, 180, 1, 1, 1, 'ease-in-out' ) ;
+            a.animate( ".ball", 300, 100, 180, 1, 1, 1, 'ease-in-out' ) ;
+            a.animate( ".ball", 0, 100, 0, 1, 1, 1, 'ease-in-out' ) ;
+            a.animate( ".ball", 0, 0, 0, 1, 1, 1, 'ease-in-out' ) ;
+
+        </script>
+    </body>
+</html>
