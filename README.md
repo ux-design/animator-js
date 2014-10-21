@@ -3,7 +3,7 @@
 
 
 
-## IMPORTANT !
+## IMPORTANT
 
 This library will work only in latest browser which area compatible with animation-keyframes 
 
@@ -43,7 +43,7 @@ Define the graphic style of the element
 </style>
 ```
 
-## Start animating !!
+## Start animating
 
 Ready to code! Right after the animator.js inclusion line.
 
@@ -63,4 +63,4 @@ logo.animate( ".logo", 300, 0, 90, 2, 1, 5, 'ease-in-out' ) ;
 
 ## License
 
-MIT
+
