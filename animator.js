@@ -43,8 +43,9 @@ var browserIsCompatible = function () {
 if ( browserIsCompatible() ) {
 
     /*
-    AD ARRAY MOTHOD TO FIND SUSTRING IN ARRAY
-    */
+    ADD ARRAY MOTHOD TO FIND SUSTRING IN ARRAY
+    
+
 
     Array.prototype.containsSubString = function( text ){
         for ( var i = 0; i < this.length; ++i )
@@ -54,6 +55,9 @@ if ( browserIsCompatible() ) {
         }
         return -1;
     }
+
+    */
+
 
     var __animator__runtimeCSS = [];
 
@@ -136,7 +140,7 @@ if ( browserIsCompatible() ) {
 
             setTimeout( function() {
                 $( target ).removeClass( name ) ;
-                $( target ).css( 'transform', 'translateX( ' + x + 'px ) translateY( ' + y + 'px ) scale( ' + s + ', ' + s + ' ) rotate( ' + r + 'deg )' ) ;
+                $( target ).css( __pref__ + 'transform', 'translateX(' + x + 'px) translateY(' + y + 'px) scale(' + s + ', ' + s + ') rotate(' + r + 'deg)' ) ;
                 $( target ).css( 'opacity', o ) ;
             }, ( delay * 1000 ) + ( duration * 1000 ) ) ;
         }
@@ -152,6 +156,7 @@ if ( browserIsCompatible() ) {
         }
     }
 
+    /*
 
     Animator.prototype.clear = function () {
         this.animations = [];
@@ -169,6 +174,7 @@ if ( browserIsCompatible() ) {
         __animator__runtimeCSS.splice( idToRemove );
     }
 
+    */
 
     Animator.prototype.update = function () {
         var styles = "", css3 = "";
@@ -189,5 +195,5 @@ if ( browserIsCompatible() ) {
     Animator.prototype.totInstances = 0 ;
 
 } else {
-    console.log( "sorry! this browser does is not supported! Try to update or change to a good one ;)" ) ;
+    console.log( "\n####################################################################################\n#  Sorry! This browser is not supported! Try to update or change to a good one ;)  #\n####################################################################################" ) ;
 }
