@@ -3,7 +3,7 @@
 
 
 
-This library will work only in latest browser which area compatible with animation-keyframes 
+This library will work only in latest browser which are compatible with animation-keyframes feature 
 
 
 ## Setup files
