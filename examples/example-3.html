@@ -41,20 +41,20 @@
             var a = new Animator( ".a ", "aMove" ) ;
             var y = new Animator( ".y ", "yMove" ) ;
 
-            p.animate( ".p", 0, -100, 0, 1, 0.5, 0, 'ease-in-out' ) ;
-            p.animate( ".p", 200, 200, 0, 1, 0.5, 1, 'ease-in-out' ) ;
-            l.animate( ".l", 0, -100, 0, 1, 0.5, 0, 'ease-in-out' ) ;
-            l.animate( ".l", 200, 200, 0, 1, 0.5, 1, 'ease-in-out' ) ;
-            a.animate( ".a", 0, -100, 0, 1, 0.5, 0, 'ease-in-out' ) ;
-            a.animate( ".a", 200, 200, 0, 1, 0.5, 1, 'ease-in-out' ) ;
-            y.animate( ".y", 0, -100, 0, 1, 0.5, 0, 'ease-in-out' ) ;
-            y.animate( ".y", 200, 200, 0, 1, 0.5, 1, 'ease-in-out' ) ;
+            p.animate( ".p", 0, -100, 0, 1, 0.5, 10, 0, 'ease-in-out' ) ;
+            p.animate( ".p", 200, 200, 0, 1, 0.5, 10, 1, 'ease-in-out' ) ;
+            l.animate( ".l", 0, -100, 0, 1, 0.5, 10, 0, 'ease-in-out' ) ;
+            l.animate( ".l", 200, 200, 0, 1, 0.5, 10, 1, 'ease-in-out' ) ;
+            a.animate( ".a", 0, -100, 0, 1, 0.5, 10, 0, 'ease-in-out' ) ;
+            a.animate( ".a", 200, 200, 0, 1, 0.5, 10, 1, 'ease-in-out' ) ;
+            y.animate( ".y", 0, -100, 0, 1, 0.5, 10, 0, 'ease-in-out' ) ;
+            y.animate( ".y", 200, 200, 0, 1, 0.5, 10, 1, 'ease-in-out' ) ;
 
             setTimeout(function(){
-                p.animate( ".p", 200, 200, 360, 1, 1, 1, 'ease-in-out' ) ;
-                l.animate( ".l", 300, 200, 360, 1, 1, 1, 'ease-in-out' ) ;
-                a.animate( ".a", 400, 200, 360, 1, 1, 1, 'ease-in-out' ) ;
-                y.animate( ".y", 500, 200, 360, 1, 1, 1, 'ease-in-out' ) ;
+                p.animate( ".p", 200, 200, 360, 1, 1, 0, 1, 'ease-in-out' ) ;
+                l.animate( ".l", 300, 200, 360, 1, 1, 0, 1, 'ease-in-out' ) ;
+                a.animate( ".a", 400, 200, 360, 1, 1, 0, 1, 'ease-in-out' ) ;
+                y.animate( ".y", 500, 200, 360, 1, 1, 0, 1, 'ease-in-out' ) ;
             }, 1000 );
 
 
