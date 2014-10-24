@@ -151,13 +151,20 @@ if ( __browserIsCompatible__() ) {
         var currO = $( target ).attr( 'opacity' ) ;
         var currB = $( target ).attr( 'blur' ) ;
         var ease = ease ;
+        if( blur != -1 ){
+            var blurFilterFrom = __pref__ + 'filter: blur(' + currB + 'px);' ;
+            var blurFilterTo = __pref__ + 'filter: blur(' + blur + 'px);' ;
+        }else{
+            var blurFilterFrom = '' ;
+            var blurFilterTo = '' ;
+        }
         $( target ).attr( 'left', x ) ;
         $( target ).attr( 'top', y ) ;
         $( target ).attr( 'rotation', r ) ;
         $( target ).attr( 'scale', s ) ;
         $( target ).attr( 'opacity', o ) ;
         $( target ).attr( 'blur', blur ) ;
-        if ( me.create( name, '@' + __pref__ + 'keyframes ' + name + '{from{ opacity: ' + currO + ' ; ' + __pref__ + 'transform: translateX(' + currX + 'px) translateY(' + currY + 'px) rotate(' + currR + 'deg) scale(' + currS + '); ' + __pref__ + 'filter: blur(' + currB + 'px); }to{ opacity: ' + o + ' ; ' + __pref__ + 'transform: translateX(' + x + 'px) translateY(' + y + 'px) rotate(' + r + 'deg) scale(' + s + '); ' + __pref__ + 'filter: blur(' + blur + 'px); }}.' + name + '{' + __pref__ + 'animation-name:' + name + ';' + __pref__ + 'animation-duration:' + duration + 's;    ' + __pref__ + 'animation-fill-mode: both; ' + __pref__ + 'animation-timing-function: ' + ease + ';}' )) {
+        if ( me.create( name, '@' + __pref__ + 'keyframes ' + name + '{from{ opacity: ' + currO + ' ; ' + __pref__ + 'transform: translateX(' + currX + 'px) translateY(' + currY + 'px) rotate(' + currR + 'deg) scale(' + currS + '); }to{ opacity: ' + o + ' ; ' + __pref__ + 'transform: translateX(' + x + 'px) translateY(' + y + 'px) rotate(' + r + 'deg) scale(' + s + '); ' + blurFilterTo + ' }}.' + name + '{' + __pref__ + 'animation-name:' + name + ';' + __pref__ + 'animation-duration:' + duration + 's;    ' + __pref__ + 'animation-fill-mode: both; ' + __pref__ + 'animation-timing-function: ' + ease + ';}' )) {
             setTimeout( function() {
                 $( target ).addClass( name ) ;
                 $( target ).attr( 'left', x ) ;
@@ -171,7 +178,9 @@ if ( __browserIsCompatible__() ) {
             setTimeout( function() {
                 $( target ).removeClass( name ) ;
                 $( target ).css( __pref__ + 'transform', 'translateX(' + x + 'px) translateY(' + y + 'px) scale(' + s + ', ' + s + ') rotate(' + r + 'deg)' ) ;
-                $( target ).css( __pref__ + 'filter', 'blur(' + blur + 'px)' ) ;
+                if( blurFilterTo != '' ){
+                    $( target ).css( __pref__ + 'filter', 'blur(' + blur + 'px)' ) ;
+                }
                 $( target ).css( 'opacity', o ) ;
             }, ( delay * 1000 ) + ( duration * 1000 ) ) ;
         }
