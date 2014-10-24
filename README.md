@@ -3,8 +3,6 @@
 
 
 
-## IMPORTANT
-
 This library will work only in latest browser which area compatible with animation-keyframes 
 
 
