@@ -82,7 +82,7 @@
 
                 for( x = 0 ; x < tot ; x++  ) {
                     letW = $( '#let' + x ).width() ;
-                    animWrite( x, '#let' , 100 + ( letW * x ) , 100, 720, 1, 1, 100, 1, 'ease-in-out' ) ; 
+                    animWrite( x, '#let' , 100 + ( letW * x ) , 100, 720, 1, 1, -1, 1, 'ease-in-out' ) ; 
                 }
             }
 
@@ -90,12 +90,12 @@
                 setTimeout( function(){
                     var a = new Animator( target+i, "move" ) ;
                     a.animate( target + i, x - ( Math.random() * 600 ) , 200 - ( Math.random() * 600 ), 0, 0, 0, blur, 0, ease ) ;
-                    a.animate( target + i, x, y, r, s, o, 0, time, ease ) ;
+                    a.animate( target + i, x, y, r, s, o, -1, time, ease ) ;
                 }, 100 * i ) ;
 
                 setTimeout( function(){
                     var b = new Animator( target+i, "remove" ) ;
-                    b.animate( target + i, x, y, r, s, o, 0, 0, ease ) ;
+                    b.animate( target + i, x, y, r, s, o, -1, 0, ease ) ;
                     b.animate( target + i, x - ( Math.random() * 600 ) , 200 + ( Math.random() * 600 ), 0, 0, 0, blur, time, ease ) ;
                 }, (100 * i) + 5000 ) ;
             }
