@@ -42,27 +42,30 @@ var __browserIsCompatible__ = function () {
 
     name = "Chrome" ;
     if ( agent.match( /Chrome/i ) ) {
+        nameLen = name.length ;
         b = agent.indexOf( name ) ;
-        v = agent.substring( name.length + b + 1, name.length + b + 3 ) ;
+        v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
         v = v.replace( ".", "" ) ;
-        if( v >= 4 ) return true ;
+        if( v >= 4 ) return true
     }
 
     name = "Firefox" ;
     if ( agent.match( /Firefox/i ) ) {
+        nameLen = name.length ;
         b = agent.indexOf( name ) ;
-        v = agent.substring( name.length + b + 1, name.length + b + 3 ) ;
+        v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
         v = v.replace( ".", "" ) ;
-        if( v >= 17 ) return true ;
+        if( v >= 17 ) return true
     }
     name = "Version" ;
     if ( agent.match( /Safari/i ) ) {
+        nameLen = name.length ;
         b = agent.indexOf( name ) ;
-        v = agent.substring( name.length + b + 1, name.length + b + 3 ) ;
+        v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
         v = v.replace( ".", "" ) ;
-        if( v >= 4 ) return true ;
+        if( v >= 4 ) return true
     }
-    return false ;
+    return false
 }
 
 if ( __browserIsCompatible__() ) {
@@ -89,14 +92,16 @@ if ( __browserIsCompatible__() ) {
     var __pref__;
 
     var __css3Prefix__ = function () {
-        var a = 0, prefix ;
-        if ( 'transform' in document.body.style )            { a ++ ; prefix = '' ;            } ; 
-        if ( '-webkit-transform' in document.body.style )    { a ++ ; prefix = '-webkit-' ;    } ; 
-        if ( '-moz-transform' in document.body.style )       { a ++ ; prefix = '-moz-' ;       } ; 
-        if ( '-o-transform' in document.body.style)          { a ++ ; prefix = '-o-' ;         } ; 
-        if ( '-ms-transform' in document.body.style)         { a ++ ; prefix = '-ms-' ;        } ; 
+        var a = 0
+        ,   prefix
+        ,   d = document.body.style ;
+        if ( 'transform' in d )            { a ++ ; prefix = '' ;            } ; 
+        if ( '-webkit-transform' in d )    { a ++ ; prefix = '-webkit-' ;    } ; 
+        if ( '-moz-transform' in d )       { a ++ ; prefix = '-moz-' ;       } ; 
+        if ( '-o-transform' in d )         { a ++ ; prefix = '-o-' ;         } ; 
+        if ( '-ms-transform' in d )        { a ++ ; prefix = '-ms-' ;        } ; 
         if ( a > 0 ) { a = 1 ; }
-        return prefix ; 
+        return prefix
     }
 
 
@@ -113,65 +118,73 @@ if ( __browserIsCompatible__() ) {
 
 
     Animator.prototype.init = function () {
-        if ( !__pref__ ) {
-            __pref__ = __css3Prefix__( ) ;
-        }
-        if ( !__animator__runtimeCSS[ 0 ] ) {
-            __animator__runtimeCSS[ 0 ] = $( 'style' ).text( ) ;
-        }
+        if ( !__pref__ ) __pref__ = __css3Prefix__( ) ;
+        if ( !__animator__runtimeCSS[ 0 ] ) __animator__runtimeCSS[ 0 ] = $( 'style' ).text( ) ;
         if ( this.targetSetup() ) {
             Animator.prototype.totInstances ++ ;
             this.ID = this.totInstances;
-            return true;
-        };
+            return true
+        }
     }
 
 
     Animator.prototype.targetSetup = function () {
-        var me = this ;
-        $( me.target ).attr( 'left', $( me.target ).position().left ) ;
-        $( me.target ).attr( 'top', $( me.target ).position().top ) ;
-        $( me.target ).attr( 'rotation', 0 ) ;
-        $( me.target ).attr( 'scale', 1 ) ;
-        $( me.target ).attr( 'opacity', $( me.target ).css( 'opacity' ) ) ;
-        $( me.target ).attr( 'blur', 0 ) ;
-        return true;
+        var el = this.target ;
+        $( el ).attr( { 
+              'left'        : $( el ).position().left
+            , 'top'         : $( el ).position().top
+            , 'rotation'    : 0
+            , 'scale'       : 1
+            , 'opacity'     : $( el ).css( 'opacity' )
+            , 'blur'        : 0 
+        } ) ;
+        return true
     }
 
 
     Animator.prototype.animate = function ( target, x, y, r, s, o, blur, duration, ease ) {
-        var me = this ;
-        var name = me.elemClass + me.animations.length ;
-        var delay = me.prevDelay;
-        var currX = $( target ).attr( 'left' ) ;
-        var currY = $( target ).attr( 'top' ) ;
-        var currR = $( target ).attr( 'rotation' ) ;
-        var currS = $( target ).attr( 'scale' ) ;
-        var currO = $( target ).attr( 'opacity' ) ;
-        var currB = $( target ).attr( 'blur' ) ;
-        var ease = ease ;
+        var me = this
+        ,   name = me.elemClass + me.animations.length
+        ,   delay = me.prevDelay
+        ,   el = $( target ).get(0).attributes 
+        ,   currX = el[ 'left' ].value
+        ,   currY = el[ 'top' ].value
+        ,   currR = el[ 'rotation' ].value
+        ,   currS = el[ 'scale' ].value
+        ,   currO = el[ 'opacity' ].value
+        ,   currB = el[ 'blur' ].value
+        ,   ease = ease ;
+
         if( blur != -1 ){
-            var blurFilterFrom = __pref__ + 'filter: blur(' + currB + 'px);' ;
-            var blurFilterTo = __pref__ + 'filter: blur(' + blur + 'px);' ;
+            var blurFilterFrom = __pref__ + 'filter: blur(' + currB + 'px);'
+            ,   blurFilterTo = __pref__ + 'filter: blur(' + blur + 'px);' ;
         }else{
-            var blurFilterFrom = '' ;
-            var blurFilterTo = '' ;
+            var blurFilterFrom = ''
+            ,   blurFilterTo = '' ;
         }
-        $( target ).attr( 'left', x ) ;
-        $( target ).attr( 'top', y ) ;
-        $( target ).attr( 'rotation', r ) ;
-        $( target ).attr( 'scale', s ) ;
-        $( target ).attr( 'opacity', o ) ;
-        $( target ).attr( 'blur', blur ) ;
+
+        $( target ).attr( {
+                'left'      : x 
+            ,   'top'       : y 
+            ,   'rotation'  : r 
+            ,   'scale'     : s 
+            ,   'opacity'   : o 
+            ,   'blur'      : blur
+        } ) ;
+
         if ( me.create( name, '@' + __pref__ + 'keyframes ' + name + '{from{ opacity: ' + currO + ' ; ' + __pref__ + 'transform: translateX(' + currX + 'px) translateY(' + currY + 'px) rotate(' + currR + 'deg) scale(' + currS + '); }to{ opacity: ' + o + ' ; ' + __pref__ + 'transform: translateX(' + x + 'px) translateY(' + y + 'px) rotate(' + r + 'deg) scale(' + s + '); ' + blurFilterTo + ' }}.' + name + '{' + __pref__ + 'animation-name:' + name + ';' + __pref__ + 'animation-duration:' + duration + 's;    ' + __pref__ + 'animation-fill-mode: both; ' + __pref__ + 'animation-timing-function: ' + ease + ';}' )) {
             setTimeout( function() {
+
                 $( target ).addClass( name ) ;
-                $( target ).attr( 'left', x ) ;
-                $( target ).attr( 'top', y ) ;
-                $( target ).attr( 'rotation', r ) ;
-                $( target ).attr( 'scale', s ) ;
-                $( target ).attr( 'opacity', o ) ;
-                $( target ).attr( 'blur', blur ) ;
+
+                $( target ).attr( { 
+                        'left'      : x
+                    ,   'top'       : y
+                    ,   'rotation'  : r
+                    ,   'scale'     : s
+                    ,   'opacity'   : o
+                    ,   'blur'      : blur
+                } ) ;
             }, delay * 1000 ) ;
 
             setTimeout( function() {
@@ -191,7 +204,7 @@ if ( __browserIsCompatible__() ) {
         this.animations.push({'name':elemClass, 'value':value + '\n\n'} ) ;
         if ( this.update() )
         {
-            return true;
+            return true
         }
     }
 
@@ -227,7 +240,7 @@ if ( __browserIsCompatible__() ) {
             css3 += __animator__runtimeCSS[ y ] ;
         }
         $( 'style' ).text( css3 ) ;
-        return true ;
+        return true
     }
 
 
