@@ -23,8 +23,7 @@ THE SOFTWARE.
 */
 
 
-
-"use strict"
+"use strict" ;
 
 
 var __browserIsCompatible__ = function () {
