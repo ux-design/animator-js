@@ -9,12 +9,12 @@
     </style>
   </head>
   <body>
-    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="../animator.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../dist/animator.min.js"></script>
     <script>
 
       var a = [] ;
-      for( var x = 0 ; x < 30 ; ++x ) {
+      for( var x = 0 ; x < 100 ; ++x ) {
         $( 'body' ).append( '<div class="rec div' + x + '" style="position :   absolute; left :   100px ;top :   100px; width:   50px; height:   50px; -webkit-transform-origin:   50% 50%; -moz-transform-origin:   50% 50%; -o-transform-origin:   50% 50%; -ms-transform-origin:   50% 50%; transform-origin:   50% 50%; opacity:   0 ; background-color: red; background-image:url(); background-size: contain; background-repeat: no-repeat; background-position: 50% 50%;"></div>' ) ;
         a[ x ] = new Animator( '.div' + x, "move" + x ) ;
         var left = Math.random() * 300 ;

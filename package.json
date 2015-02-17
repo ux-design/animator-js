@@ -1,0 +1,16 @@
+{
+  "name": "animator-js",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "",
+    "grunt-contrib-concat": "",
+    "grunt-contrib-copy": "",
+    "grunt-contrib-cssmin": "",
+    "grunt-contrib-htmlmin": "",
+    "grunt-contrib-uglify": "",
+    "grunt-contrib-watch": "",
+    "grunt-processhtml": "",
+    "grunt-strip-code": "^0.1.2",
+    "grunt-usemin": ""
+  }
+}

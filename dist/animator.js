@@ -87,11 +87,12 @@ if ( __browserIsCompatible__() ) {
     */
 
 
-    var __animator__runtimeCSS = [];
+    var __animator__runtimeCSS = []
 
-    var __pref__;
+    ,   __pref__
 
-    var __css3Prefix__ = function () {
+    ,   __css3Prefix__ = function () {
+
         var a = 0
         ,   prefix
         ,   d = document.body.style ;
@@ -102,6 +103,7 @@ if ( __browserIsCompatible__() ) {
         if ( '-ms-transform' in d )        { a ++ ; prefix = '-ms-' ;        } ; 
         if ( a > 0 ) { a = 1 ; }
         return prefix
+
     }
 
 
@@ -143,6 +145,7 @@ if ( __browserIsCompatible__() ) {
 
 
     Animator.prototype.animate = function ( target, x, y, r, s, o, blur, duration, ease ) {
+
         var me = this
         ,   name = me.elemClass + me.animations.length
         ,   delay = me.prevDelay
@@ -197,6 +200,7 @@ if ( __browserIsCompatible__() ) {
             }, ( delay * 1000 ) + ( duration * 1000 ) ) ;
         }
         me.prevDelay += duration ;
+
     }
 
 
