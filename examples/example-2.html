@@ -23,12 +23,19 @@
         <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="../dist/animator.js"></script>
         <script>
-            var a = new Animator( ".ball ", "ballMove" ) ;
+            Animator.$$.isActive ;
+            Animator.$$.addAnimation( '.ball', 'move', 0, 0, 0, 1, 1, -1, 1, 'ease' ) ;
+            Animator.$$.addAnimation( '.ball', 'move', 100, 100, 0, 1, 1, -1, 1, 'ease' ) ;
+            Animator.$$.addAnimation( '.ball', 'move', 100, 200, 90, 1, 1, -1, 1, 'ease' ) ;
+            
+            if( Animator.$$.inject() ) Animator.$$.begin() ;
+            /*
             a.animate( ".ball", 0, 0, 0, 1, 1, 0, 0, 'ease-in-out' ) ;
             a.animate( ".ball", 300, 0, 180, 1, 1, 0, 1, 'ease-in-out' ) ;
             a.animate( ".ball", 300, 100, 180, 1, 1, 5, 1, 'ease-in-out' ) ;
             a.animate( ".ball", 0, 100, 0, 1, 1, 5, 1, 'ease-in-out' ) ;
             a.animate( ".ball", 0, 0, 0, 1, 1, 0, 1, 'ease-in-out' ) ;
+            */
 
         </script>
     </body>
