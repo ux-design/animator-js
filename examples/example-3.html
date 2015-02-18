@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <style>
+            .ball {
+                position                    :   absolute ;
+                left                        :   0px ;
+                top                         :   0px ;
+                width                       :   100px ;
+                height                      :   100px ;
+                background-color            :   red ;
+                -webkit-transform-origin    :   50% 50% ;
+                -moz-transform-origin       :   50% 50% ;
+                -o-transform-origin         :   50% 50% ;
+                -ms-transform-origin        :   50% 50% ;
+                transform-origin            :   50% 50% ;
+                opacity                     :   0 ;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="../dist/animator.js"></script>
+        <script>
+            Animator.$$.isActive ;
+
+            for( var divs = '', i = 0 ; i < 100 ; ++i ) {
+
+                divs += '<div class="ball ball' + i + '"></div>\n' ;
+
+            }
+
+            $( 'body' ).append( divs ) ;
+
+            for ( var f = 0, rand, r, x, y, s, t ; f < 100 ; ++f ) {
+
+                rand = Math.random() ;
+                r = parseInt( rand * 1440 ) - 720 ; 
+                x = parseInt( rand * 400 ) ;
+                y = parseInt( Math.random() * 400 ) ;
+                s = Math.random() * 0.5 ;
+                t = 0.1 ;
+
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 1, 0, -1, 0, 'ease-out' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, t, 'ease-out' ) ;
+            }
+            
+            if( Animator.$$.inject() ) Animator.$$.begin() ;
+            /*
+            a.animate( ".ball", 0, 0, 0, 1, 1, 0, 0, 'ease-in-out' ) ;
+            a.animate( ".ball", 300, 0, 180, 1, 1, 0, 1, 'ease-in-out' ) ;
+            a.animate( ".ball", 300, 100, 180, 1, 1, 5, 1, 'ease-in-out' ) ;
+            a.animate( ".ball", 0, 100, 0, 1, 1, 5, 1, 'ease-in-out' ) ;
+            a.animate( ".ball", 0, 0, 0, 1, 1, 0, 1, 'ease-in-out' ) ;
+            */
+
+        </script>
+    </body>
+</html>
