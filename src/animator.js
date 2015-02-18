@@ -212,8 +212,6 @@ Animator.$$ = ( function () {
 
     ,   addClass = function ( ii ) {
 
-        console.log( ii ) ;
-        /*
         $( ii.targetElement ).addClass( ii.css3Class + ii.id ) ;
 
         $( ii.targetElement ).attr( { 
@@ -224,7 +222,6 @@ Animator.$$ = ( function () {
             ,   'opacity'   : ii.o
             ,   'blur'      : ii.blur
         } ) ;
-        */
 
     }
 
@@ -248,9 +245,12 @@ Animator.$$ = ( function () {
             cueStart = delay + ii.duration ;
             delay += ii.duration ;
 
-            setTimeout( function () { addClass( ii ) }, cueStart * 1000 ) ;
-            setTimeout( function () { removeClass( ii ) }, ( cueStart * 1000 ) + ( ii.duration * 1000 ) ) ;
-
+            ( function( ii, cueStart ) { 
+                setTimeout( function () { addClass( ii ) ; }, cueStart * 1000 ) ; 
+            } ) ( ii, cueStart ) ;
+            ( function( ii, cueStart ) { 
+                setTimeout( function () { removeClass( ii ) ; }, ( cueStart * 1000 ) + ( ii.duration * 1000 ) ) ; 
+            } ) ( ii, cueStart ) ;
         }
 
     }
