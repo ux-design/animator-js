@@ -23,12 +23,29 @@
         <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="../dist/animator.js"></script>
         <script>
-            var a = new Animator( ".ball ", "ballMove" ) ;
+            Animator.$$.isActive ;
+
+            for ( var f = 0, rand, r, x, y, s, t ; f < 100 ; ++f ) {
+
+                rand = Math.random() ;
+                r = parseInt( rand * 720 ) - 360 ; 
+                x = parseInt( rand * 400 ) ;
+                y = parseInt( Math.random() * 400 ) ;
+                s = rand * 3 ;
+                t = 0.2 ;
+
+                Animator.$$.addAnimation( '.ball', 'move', 200, 200, 0, 1, 1, -1, t, 'ease-in-out' ) ;
+                Animator.$$.addAnimation( '.ball', 'move', x, y, r, s, 1, -1, t, 'ease-in-out' ) ;
+            }
+            
+            if( Animator.$$.inject() ) Animator.$$.begin() ;
+            /*
             a.animate( ".ball", 0, 0, 0, 1, 1, 0, 0, 'ease-in-out' ) ;
             a.animate( ".ball", 300, 0, 180, 1, 1, 0, 1, 'ease-in-out' ) ;
             a.animate( ".ball", 300, 100, 180, 1, 1, 5, 1, 'ease-in-out' ) ;
             a.animate( ".ball", 0, 100, 0, 1, 1, 5, 1, 'ease-in-out' ) ;
             a.animate( ".ball", 0, 0, 0, 1, 1, 0, 1, 'ease-in-out' ) ;
+            */
 
         </script>
     </body>

@@ -23,71 +23,69 @@ THE SOFTWARE.
 */
 
 
-"use strict" ;
+var Animator = Animator || {} ;
 
+Animator.$$ = ( function () {
 
-var __browserIsCompatible__ = function () {
-    var agent = navigator.userAgent
-    ,   name
-    ,   b
-    ,   v ;
-
-    if ( agent.match( /MSIE 10/i ) || 
-        agent.match( /like Gecko/i ) || 
-        agent.match( /iPad/i ) || 
-        agent.match( /iPhone/i ) || 
-        agent.match( /iPod/i ) ) {
-        return true ;
-    }
-
-    name = "Chrome" ;
-    if ( agent.match( /Chrome/i ) ) {
-        nameLen = name.length ;
-        b = agent.indexOf( name ) ;
-        v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
-        v = v.replace( ".", "" ) ;
-        if( v >= 4 ) return true
-    }
-
-    name = "Firefox" ;
-    if ( agent.match( /Firefox/i ) ) {
-        nameLen = name.length ;
-        b = agent.indexOf( name ) ;
-        v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
-        v = v.replace( ".", "" ) ;
-        if( v >= 17 ) return true
-    }
-    name = "Version" ;
-    if ( agent.match( /Safari/i ) ) {
-        nameLen = name.length ;
-        b = agent.indexOf( name ) ;
-        v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
-        v = v.replace( ".", "" ) ;
-        if( v >= 4 ) return true
-    }
-    return false
-}
-
-if ( __browserIsCompatible__() ) {
+    "use strict" ;
 
     /*
-    ADD ARRAY METHOD TO FIND SUBSTRING IN ARRAY
-    
-
-
-    Array.prototype.containsSubString = function( text ){
-        for ( var i = 0; i < this.length; ++i )
-        {
-            if ( this[i].toString().indexOf( text ) != -1 )
-                return i;
-        }
-        return -1;
-    }
-
+    CHECK BROWSER COMPATIBILITY
     */
 
+    var __browserIsCompatible__ = function () {
 
-    var __animator__runtimeCSS = []
+        var agent = navigator.userAgent
+        ,   name
+        ,   nameLen
+        ,   b
+        ,   v ;
+
+        if ( agent.match( /MSIE 10/i ) || 
+            agent.match( /like Gecko/i ) || 
+            agent.match( /iPad/i ) || 
+            agent.match( /iPhone/i ) || 
+            agent.match( /iPod/i ) ) {
+            return true ;
+        }
+
+        name = "Chrome" ;
+        if ( agent.match( /Chrome/i ) ) {
+            nameLen = name.length ;
+            b = agent.indexOf( name ) ;
+            v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
+            v = v.replace( ".", "" ) ;
+            if( v >= 4 ) return true
+        }
+
+        name = "Firefox" ;
+        if ( agent.match( /Firefox/i ) ) {
+            nameLen = name.length ;
+            b = agent.indexOf( name ) ;
+            v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
+            v = v.replace( ".", "" ) ;
+            if( v >= 17 ) return true
+        }
+
+        name = "Version" ;
+        if ( agent.match( /Safari/i ) ) {
+            nameLen = name.length ;
+            b = agent.indexOf( name ) ;
+            v = agent.substring( nameLen + b + 1, nameLen + b + 3 ) ;
+            v = v.replace( ".", "" ) ;
+            if( v >= 4 ) return true
+        }
+
+        return false
+    }
+
+    ,   __animator__runtimeCSS = [] 
+
+    ,   __queue__ = [] // Animations Queue
+
+    ,   __queueTemp__ = [] // Temporary Animations Queue
+
+    ,   __injections__ = "" // Injectable Css3 Rules (of Temporary Animations Queue)
 
     ,   __pref__
 
@@ -102,154 +100,161 @@ if ( __browserIsCompatible__() ) {
         if ( '-o-transform' in d )         { a ++ ; prefix = '-o-' ;         } ; 
         if ( '-ms-transform' in d )        { a ++ ; prefix = '-ms-' ;        } ; 
         if ( a > 0 ) { a = 1 ; }
+
         return prefix
 
     }
 
+    ,   currentTargetElement = ""
 
-    var Animator = function ( target, elemClass ) { 
-        var me = this ;
-        me.target = target ;
-        me.ID = 0 ;
-        me.elemClass = elemClass ;
-        me.prevDelay = 0 ;
-        me.animations = [] ;
-        me.cssRules = "" ;
-        me.init() ;
-    }
+    ,   targetSetup = function ( el ) {
 
-
-    Animator.prototype.init = function () {
-        if ( !__pref__ ) __pref__ = __css3Prefix__( ) ;
-        if ( !__animator__runtimeCSS[ 0 ] ) __animator__runtimeCSS[ 0 ] = $( 'style' ).text( ) ;
-        if ( this.targetSetup() ) {
-            Animator.prototype.totInstances ++ ;
-            this.ID = this.totInstances;
-            return true
-        }
-    }
-
-
-    Animator.prototype.targetSetup = function () {
-        var el = this.target ;
         $( el ).attr( { 
+
               'left'        : $( el ).position().left
             , 'top'         : $( el ).position().top
             , 'rotation'    : 0
             , 'scale'       : 1
             , 'opacity'     : $( el ).css( 'opacity' )
             , 'blur'        : 0 
+
         } ) ;
+
         return true
     }
 
+    ,   addAnimation = function ( targetElement, css3Class, x, y, r, s, o, blur, start, duration, ease ) { 
 
-    Animator.prototype.animate = function ( target, x, y, r, s, o, blur, duration, ease ) {
+        if ( this.currentTargetElement != targetElement ) targetSetup( targetElement ) ;
 
-        var me = this
-        ,   name = me.elemClass + me.animations.length
-        ,   delay = me.prevDelay
-        ,   el = $( target ).get(0).attributes 
+        var len = __queue__.length ;
+
+        __queue__.push( { 
+
+                id              :   len
+            ,   targetElement   :   targetElement
+            ,   css3Class       :   css3Class
+            ,   x               :   x
+            ,   y               :   y
+            ,   r               :   r
+            ,   s               :   s
+            ,   o               :   o
+            ,   blur            :   blur
+            ,   start           :   start
+            ,   duration        :   duration
+            ,   ease            :   ease
+
+        } ) ;
+
+        __queueTemp__.push( { 
+
+                id              :   len
+            ,   targetElement   :   targetElement
+            ,   css3Class       :   css3Class
+            ,   x               :   x
+            ,   y               :   y
+            ,   r               :   r
+            ,   s               :   s
+            ,   o               :   o
+            ,   blur            :   blur
+            ,   start           :   start
+            ,   duration        :   duration
+            ,   ease            :   ease
+
+        } ) ;
+
+        var el = $( targetElement ).get( 0 ).attributes 
         ,   currX = el[ 'left' ].value
         ,   currY = el[ 'top' ].value
         ,   currR = el[ 'rotation' ].value
         ,   currS = el[ 'scale' ].value
         ,   currO = el[ 'opacity' ].value
-        ,   currB = el[ 'blur' ].value
-        ,   ease = ease ;
+        ,   currB = el[ 'blur' ].value ;
 
-        if( blur != -1 ){
+        if ( blur != -1 ) {
+
             var blurFilterFrom = __pref__ + 'filter: blur(' + currB + 'px);'
             ,   blurFilterTo = __pref__ + 'filter: blur(' + blur + 'px);' ;
-        }else{
+
+        } else {
+
             var blurFilterFrom = ''
             ,   blurFilterTo = '' ;
+
         }
 
-        $( target ).attr( {
-                'left'      : x 
-            ,   'top'       : y 
-            ,   'rotation'  : r 
-            ,   'scale'     : s 
-            ,   'opacity'   : o 
-            ,   'blur'      : blur
+        var name = css3Class + len ;
+
+        __injections__ += '@' + __pref__ + 'keyframes ' + name + '{\n to{ opacity: ' + o + ' ; ' + __pref__ + 'transform: translateX(' + x + 'px) translateY(' + y + 'px) rotate(' + r + 'deg) scale(' + s + '); ' + blurFilterTo + ' }\n}\n.' + name + '{' + __pref__ + 'animation-name:' + name + ';' + __pref__ + 'animation-duration:' + duration + 's;    ' + __pref__ + 'animation-fill-mode: both; ' + __pref__ + 'animation-timing-function: ' + ease + ';}\n\n' ;
+
+    }
+
+    ,   inject = function () {
+
+        $( 'style' ).append( __injections__ ) ;
+        __injections__ = '' ;
+
+        return true
+
+    }
+
+    ,   addClass = function ( ii ) {
+
+        $( ii.targetElement ).addClass( ii.css3Class + ii.id ) ;
+
+        $( ii.targetElement ).attr( { 
+                'left'      : ii.x
+            ,   'top'       : ii.y
+            ,   'rotation'  : ii.r
+            ,   'scale'     : ii.s
+            ,   'opacity'   : ii.o
+            ,   'blur'      : ii.blur
         } ) ;
 
-        if ( me.create( name, '@' + __pref__ + 'keyframes ' + name + '{from{ opacity: ' + currO + ' ; ' + __pref__ + 'transform: translateX(' + currX + 'px) translateY(' + currY + 'px) rotate(' + currR + 'deg) scale(' + currS + '); }to{ opacity: ' + o + ' ; ' + __pref__ + 'transform: translateX(' + x + 'px) translateY(' + y + 'px) rotate(' + r + 'deg) scale(' + s + '); ' + blurFilterTo + ' }}.' + name + '{' + __pref__ + 'animation-name:' + name + ';' + __pref__ + 'animation-duration:' + duration + 's;    ' + __pref__ + 'animation-fill-mode: both; ' + __pref__ + 'animation-timing-function: ' + ease + ';}' )) {
-            setTimeout( function() {
+    }
 
-                $( target ).addClass( name ) ;
+    ,   removeClass = function ( ii ) {
 
-                $( target ).attr( { 
-                        'left'      : x
-                    ,   'top'       : y
-                    ,   'rotation'  : r
-                    ,   'scale'     : s
-                    ,   'opacity'   : o
-                    ,   'blur'      : blur
-                } ) ;
-            }, delay * 1000 ) ;
-
-            setTimeout( function() {
-                $( target ).removeClass( name ) ;
-                $( target ).css( __pref__ + 'transform', 'translateX(' + x + 'px) translateY(' + y + 'px) scale(' + s + ', ' + s + ') rotate(' + r + 'deg)' ) ;
-                if( blurFilterTo != '' ){
-                    $( target ).css( __pref__ + 'filter', 'blur(' + blur + 'px)' ) ;
-                }
-                $( target ).css( 'opacity', o ) ;
-            }, ( delay * 1000 ) + ( duration * 1000 ) ) ;
-        }
-        me.prevDelay += duration ;
+        $( ii.targetElement ).removeClass( ii.css3Class + ii.id ) ;
+        $( ii.targetElement ).css( __pref__ + 'transform', 'translateX(' + ii.x + 'px) translateY(' + ii.y + 'px) scale(' + ii.s + ', ' + ii.s + ') rotate(' + ii.r + 'deg)' ) ;
+        $( ii.targetElement ).css( __pref__ + 'filter', 'blur(' + ii.blur + 'px)' ) ;
+        $( ii.targetElement ).css( 'opacity', ii.o ) ;
+        console.log( ii.targ );
 
     }
 
+    ,   begin = function () {
 
-    Animator.prototype.create = function ( elemClass, value ) { 
-        this.animations.push({'name':elemClass, 'value':value + '\n\n'} ) ;
-        if ( this.update() )
-        {
-            return true
+        for ( var i = 0, delay = 0, cueStart = 0 ; i < __queueTemp__.length ; ++i ) {
+
+            var ii = __queueTemp__[ i ] ;
+            cueStart = delay + ii.duration ;
+            delay += ii.duration ;
+            if ( ii.start >= 0 ) cueStart = ii.start ;
+
+            ( function( ii, cueStart ) { 
+                setTimeout( function () { addClass( ii ) ; }, cueStart * 1000 ) ; 
+            } ) ( ii, cueStart ) ;
+            ( function( ii, cueStart ) { 
+                setTimeout( function () { removeClass( ii ) ; }, ( cueStart * 1000 ) + ( ii.duration * 1000 ) ) ; 
+            } ) ( ii, cueStart ) ;
         }
+
     }
+
+    if ( !__pref__ ) __pref__ = __css3Prefix__( ) ;
 
     /*
-
-    Animator.prototype.clear = function () {
-        this.animations = [];
-        $( 'style' ).text(__animator__runtimeCSS[ 0 ] ) ;
-        return true;
-    }
-
-
-    Animator.prototype.clean = function ( name ) {
-        var css3 = $( 'style' ).text() ;
-        var idToRemove = __animator__runtimeCSS.containsSubString( name ) ;
-        var stringToRemove = __animator__runtimeCSS[ idToRemove ] ;
-        css3 = css3.replace( stringToRemove, '' ) ;
-        $( 'style' ).text( css3 );
-        __animator__runtimeCSS.splice( idToRemove );
-    }
-
+    PUBLIC API
     */
 
-    Animator.prototype.update = function () {
-        var styles = "", css3 = "";
-        for( var x = 0 ; x < this.animations.length ; x += 1 )
-        {
-            styles += this.animations[ x ].value ;
-        }
-        __animator__runtimeCSS[ this.ID ] = styles ;
-        for( var y = 0 ; y < __animator__runtimeCSS.length ; y += 1 )
-        {
-            css3 += __animator__runtimeCSS[ y ] ;
-        }
-        $( 'style' ).text( css3 ) ;
-        return true
+    return {
+
+            isActive            :   __browserIsCompatible__()
+        ,   addAnimation        :   addAnimation
+        ,   inject              :   inject
+        ,   begin               :   begin
+
     }
 
-
-    Animator.prototype.totInstances = 0 ;
-
-} else {
-    console.log( "\n####################################################################################\n#  Sorry! This browser is not supported! Try to update or change to a good one ;)  #\n####################################################################################" ) ;
-}
+} () ) ;

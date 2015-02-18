@@ -11,7 +11,7 @@ This library will work only in latest browser which are compatible with animatio
 Include jquery and animator.js at the bottom of the body.
 
 ```html
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="jquery.js"></script>
     <script src="animator.js"></script>
 </body>
 ```
@@ -23,7 +23,7 @@ Create a simple element on the page and assign it a class or an id
     <div class="logo"></div>
 ```
 
-Define the graphic style of the element
+Define the graphic style of the element and the transform-origin as well
 
 ```html
 <style>
@@ -41,23 +41,34 @@ Define the graphic style of the element
 </style>
 ```
 
-## Start animating
+## Start coding
 
-Ready to code! Right after the animator.js inclusion line.
+Right after the animator.js script, write :
 
 ```js
-var logo = new Animator( ".logo", "classNameForThisAnimation" ) ;
+/* Animator.$$.addAnimation( targetElement, className, x, y, r, s, o, blur, start, duration, easing ) ; */
+Animator.$$.addAnimation( '.logo', 'move', 200, 200, 10, 1, 1, -1, 0, 2.2, 'linear' ) ;
+```
+This line will create a simple class named "myMoveClass0" which will translate x by 200 pixels, 
+y by 200 pixels, rotate by 10 degrees clockwise, scale to 100% (1), set opacity to 1 and remove any blur effect (-1),
+the transition will be 2200 milliseconds (2.2) long with the desired easing.
 
-// initialize to starting values 
-// className, left, top, rotation, scale, opacity, blur (-1 = no blur ), duration, easing
-logo.animate( ".logo", 0, 0, 0, 1, 1, -1, 0, 'ease-in-out' ) ; 
+## Multiple animations
 
-// move logo to right for 300px rotate it 90 degrees, scale it to double without blur in 5 seconds. 
-logo.animate( ".logo", 300, 0, 90, 2, 1, -1, 5, 'ease-in-out' ) ; 
+If you want to add multiple animations to the Queue just add other lines
+
+```js
+Animator.$$.addAnimation( '.logo', 'move', 200, 100, 60, 1, 1, -1, 2.2, 1.5, 'ease-in-out' ) ;
+Animator.$$.addAnimation( '.logo', 'move', 100, 100, 90, 1, 1, -1, 3.7, 2, 'ease-in-out' ) ;
+...
 ```
 
+## Ready to run the Queue of animations!
 
-
+Just verify that the Queue were injected to the style node and run it!
+```js
+if( Animator.$$.inject() ) Animator.$$.begin() ;
+```
 
 ## License
 

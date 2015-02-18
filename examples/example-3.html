@@ -3,59 +3,52 @@
     <head>
         <meta charset = "utf-8">
         <style>
-            * {
-                font-family                 :   Arial ;
-                font-weight                 :   bolder ;
-                color                       :   red ;
-                font-size                   :   50px ;
-                line-height                 :   100px ;
-                text-align                  :   center ;
-            }
             .ball {
                 position                    :   absolute ;
                 left                        :   0px ;
                 top                         :   0px ;
                 width                       :   100px ;
                 height                      :   100px ;
-                background-color            :   lightgray ;
-                opacity                     :   0 ;
+                background-color            :   red ;
                 -webkit-transform-origin    :   50% 50% ;
                 -moz-transform-origin       :   50% 50% ;
                 -o-transform-origin         :   50% 50% ;
                 -ms-transform-origin        :   50% 50% ;
                 transform-origin            :   50% 50% ;
+                opacity                     :   0 ;
             }
         </style>
     </head>
     <body>
-        <div class="ball p">P</div>
-        <div class="ball l">L</div>
-        <div class="ball a">A</div>
-        <div class="ball y">Y</div>
         <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="../dist/animator.min.js"></script>
+        <script type="text/javascript" src="../dist/animator.js"></script>
         <script>
+            Animator.$$.isActive ;
 
-            var p = new Animator( ".p ", "pMove" ) ;
-            var l = new Animator( ".l ", "lMove" ) ;
-            var a = new Animator( ".a ", "aMove" ) ;
-            var y = new Animator( ".y ", "yMove" ) ;
+            for( var divs = '', i = 0 ; i < 200 ; ++i ) {
 
-            p.animate( ".p", 0, -100, 0, 1, 0.5, 10, 0, 'ease-in-out' ) ;
-            p.animate( ".p", 200, 200, 0, 1, 0.5, 10, 1, 'ease-in-out' ) ;
-            l.animate( ".l", 0, -100, 0, 1, 0.5, 10, 0, 'ease-in-out' ) ;
-            l.animate( ".l", 200, 200, 0, 1, 0.5, 10, 1, 'ease-in-out' ) ;
-            a.animate( ".a", 0, -100, 0, 1, 0.5, 10, 0, 'ease-in-out' ) ;
-            a.animate( ".a", 200, 200, 0, 1, 0.5, 10, 1, 'ease-in-out' ) ;
-            y.animate( ".y", 0, -100, 0, 1, 0.5, 10, 0, 'ease-in-out' ) ;
-            y.animate( ".y", 200, 200, 0, 1, 0.5, 10, 1, 'ease-in-out' ) ;
+                divs += '<div class="ball ball' + i + '"></div>\n' ;
 
-            setTimeout(function(){
-                p.animate( ".p", 200, 200, 360, 1, 1, 0, 1, 'ease-in-out' ) ;
-                l.animate( ".l", 300, 200, 360, 1, 1, 0, 1, 'ease-in-out' ) ;
-                a.animate( ".a", 400, 200, 360, 1, 1, 0, 1, 'ease-in-out' ) ;
-                y.animate( ".y", 500, 200, 360, 1, 1, 0, 1, 'ease-in-out' ) ;
-            }, 1000 );
+            }
+
+            $( 'body' ).append( divs ) ;
+
+            for ( var f = 0, rand, r, x, y, s, t ; f < 200 ; ++f ) {
+
+                rand = Math.random() ;
+                r = parseInt( rand * 1440 ) - 720 ; 
+                x = parseInt( rand * 400 ) ;
+                y = parseInt( Math.random() * 400 ) ;
+                s = Math.random() * 0.2 ;
+                t = 2 ;
+
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 1, 0, -1, 0, 0, 'linear' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, 0, 5, 'ease-out' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, 5, 0, 'linear' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 1, 1, -1, 6, 5, 'ease-in' ) ;
+            }
+            
+            if( Animator.$$.inject() ) Animator.$$.begin() ;
 
 
         </script>
