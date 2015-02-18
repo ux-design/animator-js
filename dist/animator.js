@@ -40,6 +40,7 @@ Animator.$$ = ( function () {
 
         var agent = navigator.userAgent
         ,   name
+        ,   nameLen
         ,   b
         ,   v ;
 
@@ -197,7 +198,7 @@ Animator.$$ = ( function () {
 
         var name = css3Class + len ;
 
-        __injections__ += '@' + __pref__ + 'keyframes ' + name + '{\n    from{ opacity: ' + currO + ' ; ' + __pref__ + 'transform: translateX(' + currX + 'px) translateY(' + currY + 'px) rotate(' + currR + 'deg) scale(' + currS + '); }\n    to{ opacity: ' + o + ' ; ' + __pref__ + 'transform: translateX(' + x + 'px) translateY(' + y + 'px) rotate(' + r + 'deg) scale(' + s + '); ' + blurFilterTo + ' }\n}\n.' + name + '{' + __pref__ + 'animation-name:' + name + ';' + __pref__ + 'animation-duration:' + duration + 's;    ' + __pref__ + 'animation-fill-mode: both; ' + __pref__ + 'animation-timing-function: ' + ease + ';}\n\n' ;
+        __injections__ += '@' + __pref__ + 'keyframes ' + name + '{\n to{ opacity: ' + o + ' ; ' + __pref__ + 'transform: translateX(' + x + 'px) translateY(' + y + 'px) rotate(' + r + 'deg) scale(' + s + '); ' + blurFilterTo + ' }\n}\n.' + name + '{' + __pref__ + 'animation-name:' + name + ';' + __pref__ + 'animation-duration:' + duration + 's;    ' + __pref__ + 'animation-fill-mode: both; ' + __pref__ + 'animation-timing-function: ' + ease + ';}\n\n' ;
 
     }
 
@@ -231,6 +232,7 @@ Animator.$$ = ( function () {
         $( ii.targetElement ).css( __pref__ + 'transform', 'translateX(' + ii.x + 'px) translateY(' + ii.y + 'px) scale(' + ii.s + ', ' + ii.s + ') rotate(' + ii.r + 'deg)' ) ;
         $( ii.targetElement ).css( __pref__ + 'filter', 'blur(' + ii.blur + 'px)' ) ;
         $( ii.targetElement ).css( 'opacity', ii.o ) ;
+        console.log( ii.targ );
 
     }
 
