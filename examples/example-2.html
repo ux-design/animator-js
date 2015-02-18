@@ -24,9 +24,19 @@
         <script type="text/javascript" src="../dist/animator.js"></script>
         <script>
             Animator.$$.isActive ;
-            Animator.$$.addAnimation( '.ball', 'move', 0, 0, 0, 1, 1, -1, 1, 'ease' ) ;
-            Animator.$$.addAnimation( '.ball', 'move', 100, 100, 0, 1, 1, -1, 1, 'ease' ) ;
-            Animator.$$.addAnimation( '.ball', 'move', 100, 200, 90, 1, 1, -1, 1, 'ease' ) ;
+
+            for ( var f = 0, rand, r, x, y, s, t ; f < 100 ; ++f ) {
+
+                rand = Math.random() ;
+                r = parseInt( rand * 720 ) - 360 ; 
+                x = parseInt( rand * 400 ) ;
+                y = parseInt( Math.random() * 400 ) ;
+                s = rand * 3 ;
+                t = 1 ;
+
+                Animator.$$.addAnimation( '.ball', 'move', 200, 200, 0, 1, 1, -1, t, 'ease-in-out' ) ;
+                Animator.$$.addAnimation( '.ball', 'move', x, y, r, s, 1, -1, t, 'ease-in-out' ) ;
+            }
             
             if( Animator.$$.inject() ) Animator.$$.begin() ;
             /*

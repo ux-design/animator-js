@@ -23,7 +23,7 @@ Create a simple element on the page and assign it a class or an id
     <div class="logo"></div>
 ```
 
-Define the graphic style of the element
+Define the graphic style of the element and the transform-origin as well
 
 ```html
 <style>
@@ -41,21 +41,16 @@ Define the graphic style of the element
 </style>
 ```
 
-## Start animating
+## Start animating!
 
-Ready to code! Right after the animator.js inclusion line.
+Right after the animator.js script, write :
 
 ```js
-var logo = new Animator( ".logo", "classNameForThisAnimation" ) ;
-
-// initialize to starting values 
-// className, left, top, rotation, scale, opacity, blur (-1 = no blur ), duration, easing
-logo.animate( ".logo", 0, 0, 0, 1, 1, -1, 0, 'ease-in-out' ) ; 
-
-// move logo to right for 300px rotate it 90 degrees, scale it to double without blur in 5 seconds. 
-logo.animate( ".logo", 300, 0, 90, 2, 1, -1, 5, 'ease-in-out' ) ; 
+Animator.$$.addAnimation( '.logo', 'myMoveClass', 200, 200, 10, 1, 1, -1, 2.2, 'ease-in-out' ) ;
 ```
-
+This line will create a simple class named "myMoveClass0" which will translate x by 200 pixels, 
+y by 200 pixels, rotate by 10 degrees clockwise, scale to 100% (1), remove any blur effect (-1),
+the transition will be 2200 milliseconds (2.2) long and the last paramenter is the easing.
 
 
 
