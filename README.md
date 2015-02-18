@@ -41,18 +41,34 @@ Define the graphic style of the element and the transform-origin as well
 </style>
 ```
 
-## Start animating!
+## Start coding
 
 Right after the animator.js script, write :
 
 ```js
-Animator.$$.addAnimation( '.logo', 'myMoveClass', 200, 200, 10, 1, 1, -1, 2.2, 'ease-in-out' ) ;
+/* Animator.$$.addAnimation( targetElement, className, x, y, r, s, o, blur, time, easing ) ; */
+Animator.$$.addAnimation( '.logo', 'move', 200, 200, 10, 1, 1, -1, 2.2, 'linear' ) ;
 ```
 This line will create a simple class named "myMoveClass0" which will translate x by 200 pixels, 
-y by 200 pixels, rotate by 10 degrees clockwise, scale to 100% (1), remove any blur effect (-1),
-the transition will be 2200 milliseconds (2.2) long and the last paramenter is the easing.
+y by 200 pixels, rotate by 10 degrees clockwise, scale to 100% (1), set opacity to 1 and remove any blur effect (-1),
+the transition will be 2200 milliseconds (2.2) long with the desired easing.
 
+## Multiple animations
 
+If you want to add multiple animations to the Queue just add other lines
+
+```js
+Animator.$$.addAnimation( '.logo', 'move', 200, 100, 60, 1, 1, -1, 1.5, 'ease-in-out' ) ;
+Animator.$$.addAnimation( '.logo', 'move', 100, 100, 90, 1, 1, -1, 2, 'ease-in-out' ) ;
+...
+```
+
+## Ready to run the Queue of animations!
+
+Just verify that the Queue were injected to the style node and run it!
+```js
+if( Animator.$$.inject() ) Animator.$$.begin() ;
+```
 
 ## License
 
