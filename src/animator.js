@@ -23,9 +23,6 @@ THE SOFTWARE.
 */
 
 
-
-
-
 var Animator = Animator || {} ;
 
 Animator.$$ = ( function () {
@@ -126,20 +123,8 @@ Animator.$$ = ( function () {
         return true
     }
 
-    ,   addAnimation = function ( targetElement, css3Class, x, y, r, s, o, blur, duration, ease ) { 
+    ,   addAnimation = function ( targetElement, css3Class, x, y, r, s, o, blur, start, duration, ease ) { 
 
-        /*
-
-        var me = this ;
-        me.target = target ;
-        me.ID = 0 ;
-        me.elemClass = elemClass ;
-        me.prevDelay = 0 ;
-        me.animations = [] ;
-        me.cssRules = "" ;
-        me.init() ;
-
-        */
         if ( this.currentTargetElement != targetElement ) targetSetup( targetElement ) ;
 
         var len = __queue__.length ;
@@ -155,6 +140,7 @@ Animator.$$ = ( function () {
             ,   s               :   s
             ,   o               :   o
             ,   blur            :   blur
+            ,   start           :   start
             ,   duration        :   duration
             ,   ease            :   ease
 
@@ -171,6 +157,7 @@ Animator.$$ = ( function () {
             ,   s               :   s
             ,   o               :   o
             ,   blur            :   blur
+            ,   start           :   start
             ,   duration        :   duration
             ,   ease            :   ease
 
@@ -238,14 +225,12 @@ Animator.$$ = ( function () {
 
     ,   begin = function () {
 
-        var delay = 0
-        ,   cueStart = 0 ;
-
-        for ( var i = 0 ; i < __queueTemp__.length ; ++i ) {
+        for ( var i = 0, delay = 0, cueStart = 0 ; i < __queueTemp__.length ; ++i ) {
 
             var ii = __queueTemp__[ i ] ;
             cueStart = delay + ii.duration ;
             delay += ii.duration ;
+            if ( ii.start >= 0 ) cueStart = ii.start ;
 
             ( function( ii, cueStart ) { 
                 setTimeout( function () { addClass( ii ) ; }, cueStart * 1000 ) ; 
