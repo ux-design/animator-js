@@ -46,8 +46,8 @@ Define the graphic style of the element and the transform-origin as well
 Right after the animator.js script, write :
 
 ```js
-/* Animator.$$.addAnimation( targetElement, className, x, y, r, s, o, blur, time, easing ) ; */
-Animator.$$.addAnimation( '.logo', 'move', 200, 200, 10, 1, 1, -1, 2.2, 'linear' ) ;
+/* Animator.$$.addAnimation( targetElement, className, x, y, r, s, o, blur, start, duration, easing ) ; */
+Animator.$$.addAnimation( '.logo', 'move', 200, 200, 10, 1, 1, -1, 0, 2.2, 'linear' ) ;
 ```
 This line will create a simple class named "myMoveClass0" which will translate x by 200 pixels, 
 y by 200 pixels, rotate by 10 degrees clockwise, scale to 100% (1), set opacity to 1 and remove any blur effect (-1),
@@ -58,8 +58,8 @@ the transition will be 2200 milliseconds (2.2) long with the desired easing.
 If you want to add multiple animations to the Queue just add other lines
 
 ```js
-Animator.$$.addAnimation( '.logo', 'move', 200, 100, 60, 1, 1, -1, 1.5, 'ease-in-out' ) ;
-Animator.$$.addAnimation( '.logo', 'move', 100, 100, 90, 1, 1, -1, 2, 'ease-in-out' ) ;
+Animator.$$.addAnimation( '.logo', 'move', 200, 100, 60, 1, 1, -1, 2.2, 1.5, 'ease-in-out' ) ;
+Animator.$$.addAnimation( '.logo', 'move', 100, 100, 90, 1, 1, -1, 3.7, 2, 'ease-in-out' ) ;
 ...
 ```
 
