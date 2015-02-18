@@ -11,7 +11,7 @@ This library will work only in latest browser which are compatible with animatio
 Include jquery and animator.js at the bottom of the body.
 
 ```html
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="jquery.js"></script>
     <script src="animator.js"></script>
 </body>
 ```
