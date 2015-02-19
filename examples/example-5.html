@@ -1,61 +1,65 @@
 <!doctype html>
 <html>
     <head>
-        <meta charset = "utf-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name = "viewport" content = "width = device-width, initial-scale = 2, user-scalable = yes, maximum-scale = 2, minimal-ui">
         <style>
-            .ball {
+
+            body {
+
+                overflow                    :   hidden ;
+
+            }
+
+            .cell {
+
                 position                    :   absolute ;
                 left                        :   0px ;
                 top                         :   0px ;
-                width                       :   100px ;
-                height                      :   100px ;
+                width                       :   64px ;
+                height                      :   64px ;
                 -webkit-transform-origin    :   50% 50% ;
                 -moz-transform-origin       :   50% 50% ;
                 -o-transform-origin         :   50% 50% ;
                 -ms-transform-origin        :   50% 50% ;
                 transform-origin            :   50% 50% ;
-                opacity                     :   0 ;
+                opacity                     :   1 ;
+                -webkit-border-radius       :   50% ;
+                border-radius               :   50% ;
+                background-image            :   url( http://rack.3.mshcdn.com/media/ZgkyMDE0LzA4LzI2L2M4L0ppbTY0MHg2NDAuZmYwNDUuanBnCnAJdGh1bWIJMTIwMHg5NjAwPg/1402e3b2/abf/Jim-640x640.jpg ) ;
+
             }
+
         </style>
     </head>
     <body>
         <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="../dist/animator.js"></script>
         <script>
-            Animator.$$.isActive ;
 
-            $( 'body' ).find( '.ball' ).remove() ;
+            var divs = "" , row = 1 , col = 1 , ii = 0 , n, t ;
 
-            for( var divs = '', i = 0 ; i < 100 ; ++i ) {
-
-                divs += '<div class="ball ball' + i + '"><img src="http://img3.wikia.nocookie.net/__cb20120731024244/fantendo/images/4/49/Super_Star_NSMB2.png" height="100%"/></div>\n' ;
-
+            for ( var i = 0 ; i < 100 ; ++i ) {
+                n = i + 1 ; 
+                if ( ii == 10 ) { ii = 0 ; col = 1 ; ++ row } ;
+                divs += '<div id="cell' + n + '" class="cell" style="left:' + ( ( col * 64 ) -64 ) + 'px;top:' +  ( ( row * 64 ) - 64 ) + 'px; background-position : -' + (  ( col * 64 ) - 64 ) + 'px -' + ( ( row * 64 ) - 64 ) + 'px"></div>\n' ;
+                ++ii ; ++col ;
             }
 
             $( 'body' ).append( divs ) ;
 
-            for ( var f = 0, rand, r, x, y, s, t ; f < 100 ; ++f ) {
+            for ( var i = 0 , n = 0 ; i < 100 ; ++i ) {
+                ++ n ;
+                t = ( Math.random() * 20 ) + 2 ;
+                Animator.$$.addAnimation( '#cell' + n, 'fall' + n + '_', 0, -1000, ( Math.random() * 360 ), 1, 0, -1, 0, 0, 'linear' ) ;
+                Animator.$$.addAnimation( '#cell' + n, 'fall' + n + '_', 0, -1000, ( Math.random() * 360 ), 1, 0, -1, 0, 2, 'linear' ) ;
+                Animator.$$.addAnimation( '#cell' + n, 'fall' + n + '_', 0, 0, 0, 1, 1, -1, t, 2, 'ease-out' ) ;
 
-                rand = Math.random() ;
-                r = parseInt( rand * 360 ) ; 
-                x = parseInt( rand * 400 ) ;
-                y = parseInt( Math.random() * 400 ) ;
-                s = Math.random() * 2 ;
-                t = 1 ;
-
-                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 0.1, 1, -1, 0, 0, 'linear' ) ;
-                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, 0, 2, 'ease-in-out' ) ;
-                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, 2, 0, 'linear' ) ;
-                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 0.1, 1, -1, 2, 2, 'ease-in-out' ) ;
             }
-            
             if( Animator.$$.inject() ) Animator.$$.begin() ;
-                
-            setInterval( function () {
-                document.location.reload() ;
-            },4000 ) ;
 
-
+        
         </script>
     </body>
 </html>
