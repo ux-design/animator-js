@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <style>
+            body {
+                overflow                    :   hidden ;
+                background-color            :   green ;
+            }
+            .ball {
+                position                    :   absolute ;
+                left                        :   0px ;
+                top                         :   0px ;
+                width                       :   100px ;
+                height                      :   100px ;
+                -webkit-transform-origin    :   50% 50% ;
+                -moz-transform-origin       :   50% 50% ;
+                -o-transform-origin         :   50% 50% ;
+                -ms-transform-origin        :   50% 50% ;
+                -webkit-border-radius       :   50% ;
+                transform-origin            :   50% 50% ;
+                opacity                     :   0 ;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="../bower_components/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="../dist/animator.js"></script>
+        <script>
+
+            Animator.$$.isActive ;
+            var red , green , blue, w, h ;
+            w = window.innerWidth - 100 ;
+            h = window.innerHeight - 100 ;
+            cx = w / 2 ;
+            cy = h / 2 ;
+
+            for( var divs = '', i = 0 ; i < 100 ; ++i ) {
+
+                red = 255 ;
+                green = 0 ;
+                blue = 0 ; //parseInt( Math.random() * 255 ) ;
+
+                divs += '<div class="ball ball' + i + '"><img src="http://img3.wikia.nocookie.net/__cb20120731024244/fantendo/images/4/49/Super_Star_NSMB2.png" height="100%"/></div>\n' ;
+
+            }
+
+            $( 'body' ).append( divs ) ;
+
+            for ( var f = 0, rand, r, x, y, s, t ; f < 100 ; ++f ) {
+
+                r = parseInt( Math.random() * 360 ) ; 
+                x = parseInt( Math.random() * w ) ;
+                y = parseInt( Math.random() * h ) ;
+                s = ( Math.random() * 1 ) * 2 ;
+                o = 1 ;
+                t = 1 ;
+
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', cx, cy, 0, 0.01, o, -1, 0, 0, 'ease-out' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, o, -1, 0, 2, 'ease-out' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', cx, cy, 0, 0.01, o, -1, 2, 5, 'ease-in' ) ;
+            }
+            
+            if( Animator.$$.inject() ) Animator.$$.begin() ;
+                    
+            setInterval( function () {
+                document.location.reload() ;
+            },7000 ) ;
+
+        </script>
+    </body>
+</html>
