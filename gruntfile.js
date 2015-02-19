@@ -34,14 +34,22 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['src/*.*','src/**/*.*'],
+        files: ['src/*.*','src/**/*.*','examples/*.*'],
         options: {
           livereload: true,
           reload: true
         }
       }
-    }
+    },
 
+    strip_code: {
+      options: {
+        // Task-specific options go here.
+      },
+      remove: {
+        src : 'dist/animator.js'
+      }
+    }
 
   });
 
@@ -49,9 +57,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-strip-code');
 
 
 
-  grunt.registerTask('default', ['copy','uglify']);
+  grunt.registerTask('default', ['copy','strip_code','uglify']);
 
 };

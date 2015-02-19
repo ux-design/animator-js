@@ -29,11 +29,17 @@ Animator.$$ = ( function () {
 
     "use strict" ;
 
-    /*
-    CHECK BROWSER COMPATIBILITY
-    */
+    var __animator__runtimeCSS = [] 
 
-    var __browserIsCompatible__ = function () {
+    ,   __queue__ = [] // Animations Queue
+
+    ,   __queueTemp__ = [] // Temporary Animations Queue
+
+    ,   __injections__ = "" // Injectable Css3 Rules (of Temporary Animations Queue)
+
+    ,   __pref__
+
+    ,   browserIsCompatible = function () {
 
         var agent = navigator.userAgent
         ,   name
@@ -79,17 +85,7 @@ Animator.$$ = ( function () {
         return false
     }
 
-    ,   __animator__runtimeCSS = [] 
-
-    ,   __queue__ = [] // Animations Queue
-
-    ,   __queueTemp__ = [] // Temporary Animations Queue
-
-    ,   __injections__ = "" // Injectable Css3 Rules (of Temporary Animations Queue)
-
-    ,   __pref__
-
-    ,   __css3Prefix__ = function () {
+    ,   css3Prefix = function () { // set the browser's css3 prefix
 
         var a = 0
         ,   prefix
@@ -107,7 +103,7 @@ Animator.$$ = ( function () {
 
     ,   currentTargetElement = ""
 
-    ,   targetSetup = function ( el ) {
+    ,   targetSetup = function ( el ) { // convert element's attributes in styles
 
         $( el ).attr( { 
 
@@ -242,7 +238,7 @@ Animator.$$ = ( function () {
 
     }
 
-    if ( !__pref__ ) __pref__ = __css3Prefix__( ) ;
+    if ( !__pref__ ) __pref__ = css3Prefix( ) ;
 
     /*
     PUBLIC API
@@ -250,11 +246,13 @@ Animator.$$ = ( function () {
 
     return {
 
-            isActive            :   __browserIsCompatible__()
+            isActive            :   browserIsCompatible()
         ,   addAnimation        :   addAnimation
         ,   inject              :   inject
         ,   begin               :   begin
-
+        /* test-code */
+        ,   css3Prefix          :   css3Prefix
+        /* end-test-code */
     }
 
 } () ) ;
