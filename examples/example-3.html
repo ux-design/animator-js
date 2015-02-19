@@ -24,40 +24,38 @@
         <script>
             Animator.$$.isActive ;
 
+            $( 'body' ).find( '.ball' ).remove() ;
+
+            var red , green , blue ;
+
+            for( var divs = '', i = 0 ; i < 200 ; ++i ) {
+
+                red = parseInt( Math.random() * 255 ) ;
+                green = parseInt( Math.random() * 255 ) ;
+                blue = parseInt( Math.random() * 255 ) ;
+
+                divs += '<div style="background-color: rgb( ' + red + ', ' + green + ', ' + blue + ' );" class="ball ball' + i + '"></div>\n' ;
+
+            }
+
+            $( 'body' ).append( divs ) ;
+
+            for ( var f = 0, rand, r, x, y, s, t ; f < 200 ; ++f ) {
+
+                rand = Math.random() ;
+                r = parseInt( rand * 360 ) ; 
+                x = parseInt( rand * 400 ) ;
+                y = parseInt( Math.random() * 400 ) ;
+                s = Math.random() * 0.5 ;
+                t = 1 ;
+
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 0.1, 1, -1, 0, 0, 'linear' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, 0, 2, 'ease-in-out' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, 2, 0, 'linear' ) ;
+                Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 0.1, 1, -1, 2, 2, 'ease-in-out' ) ;
+            }
             
-
-                $( 'body' ).find( '.ball' ).remove() ;
-
-                var red , green , blue ;
-
-                for( var divs = '', i = 0 ; i < 600 ; ++i ) {
-
-                    red = parseInt( Math.random() * 255 ) ;
-                    green = parseInt( Math.random() * 255 ) ;
-                    blue = parseInt( Math.random() * 255 ) ;
-
-                    divs += '<div style="background-color: rgb( ' + red + ', ' + green + ', ' + blue + ' );" class="ball ball' + i + '"></div>\n' ;
-
-                }
-
-                $( 'body' ).append( divs ) ;
-
-                for ( var f = 0, rand, r, x, y, s, t ; f < 600 ; ++f ) {
-
-                    rand = Math.random() ;
-                    r = parseInt( rand * 360 ) ; 
-                    x = parseInt( rand * 400 ) ;
-                    y = parseInt( Math.random() * 400 ) ;
-                    s = Math.random() * 0.5 ;
-                    t = 1 ;
-
-                    Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 0.1, 1, -1, 0, 0, 'linear' ) ;
-                    Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, 0, 2, 'ease-in-out' ) ;
-                    Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', x, y, r, s, 1, -1, 2, 0, 'linear' ) ;
-                    Animator.$$.addAnimation( '.ball' + f, 'move' + f + '_', 200, 200, 0, 0.1, 1, -1, 2, 2, 'ease-in-out' ) ;
-                }
-                
-                if( Animator.$$.inject() ) Animator.$$.begin() ;
+            if( Animator.$$.inject() ) Animator.$$.begin() ;
                     
             setInterval( function () {
                 document.location.reload() ;
