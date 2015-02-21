@@ -214,7 +214,6 @@ Animator.$$ = ( function () {
         $( ii.targetElement ).css( __pref__ + 'transform', 'translateX(' + ii.x + 'px) translateY(' + ii.y + 'px) scale(' + ii.s + ', ' + ii.s + ') rotate(' + ii.r + 'deg)' ) ;
         $( ii.targetElement ).css( __pref__ + 'filter', 'blur(' + ii.blur + 'px)' ) ;
         $( ii.targetElement ).css( 'opacity', ii.o ) ;
-        console.log( ii.targ );
 
     }
 
