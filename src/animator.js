@@ -234,6 +234,8 @@ Animator.$$ = ( function () {
             } ) ( ii, cueStart ) ;
         }
 
+        __queueTemp__ = [] ;
+
     }
 
     if ( !__pref__ ) __pref__ = css3Prefix( ) ;
