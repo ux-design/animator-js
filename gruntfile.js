@@ -45,7 +45,7 @@ module.exports = function(grunt) {
         // Task-specific options go here.
       },
       remove: {
-        src : 'dist/animator.js'
+        src : 'src/animator.js'
       }
     }
 

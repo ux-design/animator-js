@@ -250,9 +250,6 @@ Animator.$$ = ( function () {
         ,   addAnimation        :   addAnimation
         ,   inject              :   inject
         ,   begin               :   begin
-        /* test-code */
-        ,   css3Prefix          :   css3Prefix
-        /* end-test-code */
     }
 
 } () ) ;
